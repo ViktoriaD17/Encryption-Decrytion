@@ -1,0 +1,38 @@
+def to_twos_complement(number, bits):
+    # Calculate the minimum and maximum representable values for the specified bit length
+    min_val = -2 ** (bits - 1)
+    max_val = 2 ** (bits - 1) - 1
+
+    # Check if the input number is within the allowable range
+    if number < min_val or number > max_val:
+        raise ValueError(f"Number out of range for {bits}-bit two's complement. "
+                         f"Must be between {min_val} and {max_val}.")
+
+    # Case for non-negative numbers
+    if number >= 0:
+        # For positive numbers, the binary representation is straightforward
+        binary_representation = f"{number:0{bits}b}"
+    else:
+        # For negative numbers, calculate the two's complement by adding 2^bits
+        binary_representation = f"{(1 << bits) + number:0{bits}b}"
+
+    return binary_representation
+
+# Example usage 
+if __name__ == "__main__":
+    # Prompt the user for a number and the desired bit length
+    number = int(input("Enter an integer: "))
+    bits = int(input("Enter the bit length: "))
+
+    try:
+        # Get the two's complement representation
+        twos_complement = to_twos_complement(number, bits)
+        
+        # Display the result
+        print(f"The {bits}-bit two's complement of {number} is: {twos_complement}")
+    except ValueError as e:
+        # Display an error message if the number is out of range
+        print(e) 
+        
+
+      
